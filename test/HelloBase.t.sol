@@ -3,13 +3,13 @@ pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
 
-import "src/Contract.sol";
+import "src/HelloBase.sol";
 
-contract TestContract is Test {
-    Contract c;
+contract TestHelloBase is Test {
+    HelloBase c;
 
     function setUp() public {
-        c = new Contract();
+        c = new HelloBase();
     }
 
     function testBar() public {
