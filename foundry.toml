@@ -1,2 +1,8 @@
 [profile.ci.fuzz]
 runs = 10_000
+
+[rpc_endpoints]
+base_goerli = "${RPC_BASE}"
+
+[etherscan]
+base_goerli = { key = "${ETHERSCAN_API_KEY}", chainId=84531}

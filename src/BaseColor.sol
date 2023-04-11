@@ -14,13 +14,15 @@ contract BaseColor is ERC721 {
         _mint(to, tokenId);
     }
 
-    string internal constant SVG_HEADER =
-        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' style='background-color:";
-    string internal constant SVG_FOOTER = "'></svg>";
-
-    function tokenURI(uint256 tokenId) public pure override returns (string memory) {
-        require(tokenId <= type(uint24).max, "Invalid RGBA color");
-        return string(abi.encodePacked(SVG_HEADER, rgb(tokenId), SVG_FOOTER));
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        require(_ownerOf[tokenId] != address(0), "NOT_MINTED");
+        return string(
+            abi.encodePacked(
+                "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' style='background-color:",
+                rgb(tokenId),
+                "'></svg>"
+            )
+        );
     }
 
     function rgb(uint256 tokenId) public pure returns (string memory) {

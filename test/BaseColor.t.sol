@@ -12,8 +12,13 @@ contract TestBaseColor is Test {
         c = new BaseColor();
     }
 
-    function testBar() public {
-        assertEq(uint256(1), uint256(1), "ok");
+    function testMint(uint24 tokenId, uint24 tokenId2) public {
+        vm.assume(tokenId != tokenId2);
+        c.mint(address(this), tokenId);
+        c.mint(address(this), tokenId2);
+        assertEq(c.balanceOf(address(this)), 2);
+        assertEq(c.ownerOf(tokenId), address(this));
+        assertEq(c.ownerOf(tokenId2), address(this));
     }
 
     function testFoo(uint256 x) public {
@@ -22,6 +27,12 @@ contract TestBaseColor is Test {
     }
 
     function testTokenURI() public {
+        c.mint(address(this), 0);
+        c.mint(address(this), 1);
+        c.mint(address(this), 255);
+        c.mint(address(this), 65535);
+        c.mint(address(this), 65536);
+        c.mint(address(this), type(uint24).max);
         assertEq(
             c.tokenURI(0),
             "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' style='background-color:rgb(0,0,0)'></svg>"
