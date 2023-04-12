@@ -5,4 +5,5 @@ runs = 10_000
 base_goerli = "${RPC_BASE}"
 
 [etherscan]
-base_goerli = { key = "${ETHERSCAN_API_KEY}", chainId=84531}
+mainnet = { key = "${ETHERSCAN_API_KEY}" }
+base_goerli = { key = "${ETHERSCAN_API_KEY}", chain = 84531, url = "https://goerli.basescan.org" }
